@@ -46,7 +46,7 @@ public class UserDataStreamExample {
     System.out.println("Waiting for events...");
 
     // We can keep alive the user data stream
-    // client.keepAliveUserDataStream(listenKey);
+     client.keepAliveUserDataStream(listenKey);
 
     // Or we can invalidate it, whenever it is no longer needed
     // client.closeUserDataStream(listenKey);

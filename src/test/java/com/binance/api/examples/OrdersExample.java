@@ -24,9 +24,11 @@ import static com.binance.api.client.domain.account.NewOrder.marketBuy;
 public class OrdersExample {
 
   public static void main(String[] args) {
-    BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance("YOUR_API_KEY", "YOUR_SECRET");
+    String YOUR_API_KEY ="KBTJE0CtkFUvH91gklTKTenLzZXHjdlcXOuhrHoUe3Ga0yvBNrDVImSbAVg8LtEy";
+    String YOUR_SECRET ="qfTEygGoh4uviQWCKYCsc9CSaLtXMb4QruFhYaaj3llccGM9l4jbuAQafNmd05wS";
+    BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(YOUR_API_KEY, YOUR_SECRET);
     BinanceApiRestClient client = factory.newRestClient();
-
+/*
     // Getting list of open orders
     List<Order> openOrders = client.getOpenOrders(new OrderRequest("LINKETH"));
     System.out.println(openOrders);
@@ -45,13 +47,13 @@ public class OrdersExample {
       System.out.println(cancelOrderResponse);
     } catch (BinanceApiException e) {
       System.out.println(e.getError().getMsg());
-    }
+    }*/
 
     // Placing a test LIMIT order
-    client.newOrderTest(limitBuy("LINKETH", TimeInForce.GTC, "1000", "0.0001"));
+//    client.newOrderTest(limitBuy("LINKETH", TimeInForce.GTC, "1000", "0.0001"));
 
     // Placing a test MARKET order
-    client.newOrderTest(marketBuy("LINKETH", "1000"));
+//    client.newOrderTest(marketBuy("LINKETH", "1000"));
 
     // Placing a real LIMIT order
     NewOrderResponse newOrderResponse = client.newOrder(limitBuy("LINKETH", TimeInForce.GTC, "1000", "0.0001").newOrderRespType(NewOrderResponseType.FULL));

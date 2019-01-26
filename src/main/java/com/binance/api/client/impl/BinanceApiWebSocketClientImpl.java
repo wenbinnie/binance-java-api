@@ -3,11 +3,7 @@ package com.binance.api.client.impl;
 import com.binance.api.client.BinanceApiCallback;
 import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.constant.BinanceApiConstants;
-import com.binance.api.client.domain.event.AggTradeEvent;
-import com.binance.api.client.domain.event.AllMarketTickersEvent;
-import com.binance.api.client.domain.event.CandlestickEvent;
-import com.binance.api.client.domain.event.DepthEvent;
-import com.binance.api.client.domain.event.UserDataUpdateEvent;
+import com.binance.api.client.domain.event.*;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -38,6 +34,15 @@ public class BinanceApiWebSocketClientImpl implements BinanceApiWebSocketClient,
                 .map(s -> String.format("%s@depth", s))
                 .collect(Collectors.joining("/"));
         return createNewWebSocket(channel, new BinanceApiWebSocketListener<>(callback, DepthEvent.class));
+    }
+
+    @Override
+    public Closeable onDepthWithLevelsEvent(String symbols, int level , BinanceApiCallback<DepthWithLevelEvent> callback) {
+        final String channel = Arrays.stream(symbols.split(","))
+                .map(String::trim)
+                .map(s -> String.format("%s@depth%s", s , level))
+                .collect(Collectors.joining("/"));
+        return createNewWebSocket(channel, new BinanceApiWebSocketListener<>(callback, DepthWithLevelEvent.class));
     }
 
     @Override
